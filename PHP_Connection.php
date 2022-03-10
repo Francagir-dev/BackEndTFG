@@ -14,13 +14,14 @@
 
     echo "Connected Succesfully";
    
-    $sqlQuery = "SELECT id, genre, age, userlocation, phobiaLevel, symptoms FROM users";
+    $sqlQuery = "SELECT id, genre, age, userlocation, phobiaLevel, symptoms, HRV FROM users";
     
     $result = $conn->query($sql);
 
     if($result->num_rows>0){
         while($row = $result->fetch_assoc()){
-            echo "id: " .$row["id"].  " -Genre: " .$row["genre"].  " -age: " .$row["age"].  " -location: " .$row["userlocation"].  " -phobialevel: " .$row["phobiaLevel"].  " -symptoms: " .$row["symptoms"]. "<br>";
+            echo "id: " .$row["id"].  " -Genre: " .$row["genre"].  " -age: " .$row["age"].  " -location: " .$row["userlocation"].  " -phobialevel: " .$row["phobiaLevel"]. 
+             " -symptoms: " .$row["symptoms"].  " -HRV: " .$row["HRV"]. "<br>";
         
         }
     }else{
