@@ -23,21 +23,14 @@
     };
 
     $getIV = function () use ($method) {
-        return base64_encode(openssl_random_pseudo_bytes(openssl_cipher_iv_length($method)));
+        return base64_encode(openssl_random_pseudo_bytes(openssl_cipher_iv_length($method)))
+    };
 
-        //Desencrypted JSON
+    //Desencrypted JSON
     $sessionDesencrypted =  $desencriptar($sessionDecoded);
+   
 
-    
-    //Assign Values
-    $genre = $sessionDesencrypted -> genre;
-    $age =  $sessionDesencrypted -> age;
-    $phobiaLevel = $sessionDesencrypted -> phobiaLevel;
-    $symptoms =  $sessionDesencrypted -> symptoms;
-    $HRV =  $sessionDesencrypted -> HRV;
-    $duration =  $sessionDesencrypted -> durationSession;
-    $date = .date("dd-M-YY H:i:s");
-
+    SetValues($sessionDesencrypted);
 
  //Check Connection
  if($conn-> connect_error)
@@ -52,6 +45,18 @@
              '" .$date ."')";
 
 
+
+
+    function SetValues($sessionDesencrypted){
+       //Assign Values
+       $genre = $sessionDesencrypted -> genre;
+       $age =  $sessionDesencrypted -> age;
+       $phobiaLevel = $sessionDesencrypted -> phobiaLevel;
+       $symptoms =  $sessionDesencrypted -> symptoms;
+       $HRV =  $sessionDesencrypted -> HRV;
+       $duration =  $sessionDesencrypted -> durationSession;
+       $date = .date("dd-M-YY H:i:s");
+        
 
 
 ?>
