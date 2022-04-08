@@ -1,8 +1,8 @@
 <?php 
 
     $servername = "localhost";
-    $username = "username";
-    $password = "password";
+    $username = "franca";
+    $password = "@7)s2_!Oyzm5UMt[";
     $dbname = "SessionInfo";
     //Create Con
     $conn = new mysqli( $servername,$username,$password,$dbname);
@@ -17,7 +17,7 @@
 
     $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
 
-    $desencriptar = function ($valor) use ($method, $clave, $iv) {
+    $decrypt = function ($valor) use ($method, $clave, $iv) {
         $encrypted_data = base64_decode($valor);
         return openssl_decrypt($valor, $method, $clave, false, $iv);
     };
@@ -27,10 +27,10 @@
     };
 
     //Desencrypted JSON
-    $sessionDesencrypted =  $desencriptar($sessionDecoded);
+    $sessionDecrypted =  $decrypt($sessionDecoded);
    
 
-    SetValues($sessionDesencrypted);
+    SetValues($sessionDecrypted);
 
  //Check Connection
  if($conn-> connect_error)
@@ -47,14 +47,14 @@
 
 
 
-    function SetValues($sessionDesencrypted){
+    function SetValues($sessionDecrypted){
        //Assign Values
-       $genre = $sessionDesencrypted -> genre;
-       $age =  $sessionDesencrypted -> age;
-       $phobiaLevel = $sessionDesencrypted -> phobiaLevel;
-       $symptoms =  $sessionDesencrypted -> symptoms;
-       $HRV =  $sessionDesencrypted -> HRV;
-       $duration =  $sessionDesencrypted -> durationSession;
+       $genre = $sessionDecrypted -> genre;
+       $age =  $sessionDecrypted -> age;
+       $phobiaLevel = $sessionDecrypted -> phobiaLevel;
+       $symptoms =  $sessionDecrypted -> symptoms;
+       $HRV =  $sessionDecrypted -> HRV;
+       $duration =  $sessionDecrypted -> durationSession;
        $date = .date("dd-M-YY H:i:s");
         
 
