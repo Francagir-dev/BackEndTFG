@@ -2,7 +2,7 @@
 
     $servername = "localhost";
     $username = "franca";
-    $password = "@7)s2_!Oyzm5UMt[";
+    $password = "0!dri-ilxP@faIMc";
     $dbname = "SessionInfo";
     //Create Con
     $conn = new mysqli( $servername,$username,$password,$dbname);

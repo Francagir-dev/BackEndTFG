@@ -1,9 +1,9 @@
 <?php 
 
     $servername = "localhost";
-    $username = "username";
-    $password = "password";
-    $dbname = "databasename"
+    $username = "franca";
+    $password = "0!dri-ilxP@faIMc";
+    $dbname = "phobiatreatmentvr"
 
     //Create Con
     $conn = new mysqli( $servername,$username,$password,$dbname);
@@ -55,5 +55,4 @@
 
 $conn -> close();
 
-function SetClassForJson(){}
 ?>
