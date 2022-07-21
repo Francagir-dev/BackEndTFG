@@ -19,7 +19,7 @@
   if($newResult->num_rows>0){
     while($row = $newResult->fetch_assoc()){   
       //Añadimos a tabla intermediaria
-      $sqlAddToNewTable =  "INSERT INTO patienthasspecialists (idPatient,idSpecialist) VALUES ('".$row["ID"]."', '".$specialistID."')";
+      $sqlAddToNewTable =  "INSERT INTO patienthasspecialists (patientID ,specialistID) VALUES ('".$row["ID"]."', '".$specialistID."')";
       $lastResult = $conn->query($sqlAddToNewTable);
     }
   }

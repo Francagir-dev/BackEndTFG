@@ -16,11 +16,11 @@ if($result->num_rows>0){
        if($row["password"] == $loginPass){       
          echo $row["ID"];
        }else{
-        echo "-1";
+        echo "Error 401";
        }
    }  
 }else{
-   echo "-2";
+   echo "Error 404";
 }
 $conn->close();
 ?>

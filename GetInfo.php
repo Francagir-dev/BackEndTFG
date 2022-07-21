@@ -27,7 +27,7 @@
             " - Date: " .$row["date"];
         }
     }else{
-        echo "0 results";
+        echo "Error 404";
     }
 /*
     if($result->num_rows>0){
