@@ -4,13 +4,19 @@
 
     $sesionCode = $_POST["sessionID"];
 
-    $sqlQuery = "SELECT idPatientSpecialist FROM session where sessionCode = '".$sesionCode."'";
+    $sqlQuery = "SELECT session.ID as SessionID, session.sessionCode as SessionCode, session.idPatientSpecialist as SessionIDSP, 
+    patienthasspecialists.patientID as PatientID, patient.name as PatientName, patient.phobia as PatientPhobia   
+      FROM session 
+      INNER JOIN patienthasspecialists ON session.idPatientSpecialist = patienthasspecialists.ID
+      INNER JOIN patient ON patienthasspecialists.patientID = patient.ID
+      where sessionCode = '".$sesionCode."'
+      GROUP BY session.sessionCode, patienthasspecialists.patientID";
 
     $result = $conn->query($sqlQuery);
 
 if($result->num_rows>0){
    while($row = $result->fetch_assoc()){
-            echo $row["idPatientSpecialist"];
+            echo $row["PatientName"];
        }  
 }else{
    echo "Unknown Error";
