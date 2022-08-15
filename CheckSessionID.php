@@ -15,11 +15,13 @@
     $result = $conn->query($sqlQuery);
 
 if($result->num_rows>0){
+   $rows = array();
    while($row = $result->fetch_assoc()){
-            echo $row["PatientName"];
-       }  
+       $rows[] = $row;
+   }    
+   echo json_encode($rows);
 }else{
-   echo "Unknown Error";
+   echo "Error 404";
 }
 $conn->close();
 
