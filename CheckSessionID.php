@@ -2,7 +2,7 @@
 
     include 'ConexionDB.php';
 
-    $sesionCode = $_POST["sessionID"];
+    $sesionCode = $_POST["codeSession"];
 
     $sqlQuery = "SELECT session.ID as SessionID, session.sessionCode as SessionCode, session.idPatientSpecialist as SessionIDSP, 
     patienthasspecialists.patientID as PatientID, patient.name as PatientName, patient.phobia as PatientPhobia   
