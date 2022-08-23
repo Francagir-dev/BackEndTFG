@@ -5,7 +5,7 @@
     $sesionCode = $_POST["codeSession"];
 
     $sqlQuery = "SELECT session.ID as SessionID, session.sessionCode as SessionCode, session.idPatientSpecialist as SessionIDSP, 
-    patienthasspecialists.patientID as PatientID, patient.name as PatientName, patient.phobia as PatientPhobia   
+    patienthasspecialists.patientID as PatientID, patient.name as PatientName, patient.phobia as PatientPhobia, patient.anxietyLVL as PhobiaLevel   
       FROM session 
       INNER JOIN patienthasspecialists ON session.idPatientSpecialist = patienthasspecialists.ID
       INNER JOIN patient ON patienthasspecialists.patientID = patient.ID

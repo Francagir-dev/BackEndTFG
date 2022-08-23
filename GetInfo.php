@@ -2,8 +2,6 @@
 
     include 'ConexionDB.php';
     
-
-
     /*
     $sqlQuery = "SELECT id, genre, age, userlocation, phobiaLevel, symptoms, HRV FROM SessionInfo";
     $sqlQuery = "SELECT id, genre, age, userlocation, phobiaLevel, symptoms, duration FROM SessionInfo";
@@ -29,16 +27,7 @@
     }else{
         echo "Error 404";
     }
-/*
-    if($result->num_rows>0){
-        while($row = $result->fetch_assoc()){
-            echo "id: " .$row["id"].  " -Genre: " .$row["genre"].  " -age: " .$row["age"].  " -location: " .$row["userlocation"].  " -phobialevel: " .$row["phobiaLevel"]. 
-             " -symptoms: " .$row["symptoms"].  " -Duration: " .$row["duration"]. "<br>";
-        }
-    }else{
-        echo "0 results"
-    }
-*/
+
 
 
 $conn -> close();
