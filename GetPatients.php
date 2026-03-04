@@ -3,13 +3,13 @@
 include 'ConexionDB.php';
 
 //Variables submitted by user
-//$loginUser = $_POST["loginUser"];
-//$loginPass = $_POST["loginPass"];
 
 $patientID = $_POST["patientID"];
-$sqlQuery = "SELECT * FROM patient WHERE ID = :patientID";
-$statement = $conn->prepare($sqlQuery);
-$statement -> bindParam(":patientID", $patientID PDO::PARAM_INT);
+
+
+$sqlQuery = "SELECT * FROM patient WHERE ID = ?";
+$stmt = $mysqli -> prepare($sqlQuery);
+$stmt ->
 
 $result = $statement -> execute();
 
