@@ -8,7 +8,7 @@ include 'ConexionDB.php';
 
 $patientID = $_POST["patientID"];
 $sqlQuery = "SELECT * FROM patient WHERE ID = '". $patientID . "'";
-$result = $conn->query($sqlQuery);
+$result = $conn->prepare($sqlQuery);
 
 if($result->num_rows>0){
     $rows = array();
