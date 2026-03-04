@@ -7,8 +7,11 @@ include 'ConexionDB.php';
 //$loginPass = $_POST["loginPass"];
 
 $patientID = $_POST["patientID"];
-$sqlQuery = "SELECT * FROM patient WHERE ID = '". $patientID . "'";
-$result = $conn->prepare($sqlQuery);
+$sqlQuery = "SELECT * FROM patient WHERE ID = :patientID";
+$statement = $conn->prepare($sqlQuery);
+$statement -> bindParam(":patientID", $patientID PDO::PARAM_INT);
+
+$result = $statement -> execute();
 
 if($result->num_rows>0){
     $rows = array();
