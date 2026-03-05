@@ -2,14 +2,14 @@
 include 'ConexionDB.php';
 
 //Variables submitted by user
-if (!isset($_POST["patientID"]) || !is_numeric($_POST["patientID"])) {
+if (!isset($_POST["ID"]) || !is_numeric($_POST["ID"])) {
     http_response_code(400);
     echo json_encode(["error" => "Error, no se ha introducido en el formato adecuado"]);
     exit;
 }
 
-$patientID = (int) $_POST["patientID"];
-$sqlQuery = "SELECT * FROM patient WHERE patientID = ?";
+$patientID = (int) $_POST["ID"];
+$sqlQuery = "SELECT * FROM patient WHERE ID = ?";
 $stmt = $conn -> prepare($sqlQuery);
 if (!$stmt) {
     http_response_code(500);
@@ -18,14 +18,14 @@ if (!$stmt) {
 }
 
 $stmt->bind_param("i", $patientID);
-$statement -> execute();
+$stmt -> execute();
 $result = $stmt->get_result();
 if($result->num_rows>0){
     $rows = array();
     while($row = $result->fetch_assoc()){
         $rows[] = $row;
     }    
-    echo json_encode($rows);
+    echo json_encode($rows, JSON_UNESCAPED_UNICODE);
 }else{
     http_response_code(404);
     echo json_encode(["error" => "Paciente no encontrado"]);
