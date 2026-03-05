@@ -30,6 +30,6 @@ if($result->num_rows>0){
     http_response_code(404);
     echo json_encode(["error" => "Paciente no encontrado"]);
 }
-
+$stmt->close();
 $conn->close();
 ?>
