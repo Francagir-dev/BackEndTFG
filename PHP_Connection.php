@@ -13,24 +13,11 @@
     $json_array = array();
     if($result->num_rows>0){
         while($row = $result->fetch_assoc()){
-            
-            echo 
-            " id: " .$row["id"].  
-            " - Genre: " .$row["genre"].  
-            " - Age: " .$row["age"].  
-            " - Location: " .$row["userLocation"].  
-            " - Phobia Level: " .$row["phobiaLevel"]. 
-            " - Symptoms: " .$row["symptoms"].  
-            " - HRV: " .$row["HRV"]. 
-            " - Duration: " .$row["duration"].
-            " - Date: " .$row["date"]
-            "<br>";
+            echo("");
         }
     }else{
-        echo "0 results"
+        echo("");
     }
-
-
 
 $conn -> close();
 

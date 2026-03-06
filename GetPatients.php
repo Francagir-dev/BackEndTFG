@@ -1,5 +1,8 @@
 <?php 
 include 'ConexionDB.php';
+include 'auth.php';
+
+$specialistID = verifyToken();
 
 //Variables submitted by user
 if (!isset($_POST["ID"]) || !is_numeric($_POST["ID"])) {
@@ -9,7 +12,9 @@ if (!isset($_POST["ID"]) || !is_numeric($_POST["ID"])) {
 }
 
 $patientID = (int) $_POST["ID"];
-$sqlQuery = "SELECT * FROM patient WHERE ID = ?";
+$sqlQuery = "SELECT p.* FROM patient p 
+             INNER JOIN patienthasspecialists phs ON p.ID = phs.patientID 
+             WHERE p.ID = ? AND phs.specialistID = ?";
 $stmt = $conn -> prepare($sqlQuery);
 if (!$stmt) {
     http_response_code(500);
@@ -17,7 +22,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("i", $patientID);
+$stmt->bind_param("ii", $patientID, $specialistID);
 $stmt -> execute();
 $result = $stmt->get_result();
 if($result->num_rows>0){

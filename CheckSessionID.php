@@ -1,5 +1,4 @@
 <?php 
-
     include 'ConexionDB.php'; //Class containing all DB info
 
     $sesionCode = $_POST["codeSession"]; //Variable that will receive info from the app
@@ -9,20 +8,21 @@
       FROM session 
       INNER JOIN patienthasspecialists ON session.idPatientSpecialist = patienthasspecialists.ID
       INNER JOIN patient ON patienthasspecialists.patientID = patient.ID
-      where sessionCode = '".$sesionCode."'
+      where sessionCode = ?
       GROUP BY session.sessionCode, patienthasspecialists.patientID"; //Query that will return info from different tables (Session, patienthasspecialists, patient, specialist)
 
-    $result = $conn->query($sqlQuery); //Getting the result
+    $result = $conn->query($sqlQuery); 
 
-if($result->num_rows>0){//if there is at least 1
-   $rows = array(); //Array of info
-   while($row = $result->fetch_assoc()){//while there is any row remaining
+if($result->num_rows>0){
+   $rows = array(); 
+   while($row = $result->fetch_assoc()){
        $rows[] = $row;
    }    
-   echo json_encode($rows);//return info 
-}else{//If query don't find any
+   echo json_encode($rows);
+}else{
    echo "Error 404";
 }
-$conn->close();//Close connection
+$stmt -> close();
+$conn->close();
 
 ?>

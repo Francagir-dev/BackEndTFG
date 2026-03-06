@@ -1,13 +1,17 @@
 <?php 
     include 'ConexionDB.php';
-  //Variables  
-  $patientName = $_POST["patientName"];    
-  $patientGenre = $_POST["patientGenre"];
-  $patientAge = $_POST["patientAge"];   
-  $patientAnxietyLevel = $_POST["patientAnxietyLVL"];
-  $patientPhobia = $_POST["patientPhobia"];
-  $patientLocation = $_POST["patientLocation"];
-  $specialistID = $_POST["specialistID"];
+
+  
+  $specialistID = verifyToken();
+  
+    //Variables  
+  $patientName = $_POST["patientName"]?? null;    
+  $patientGenre = $_POST["patientGenre"]?? null;
+  $patientAge = $_POST["patientAge"]?? null;   
+  $patientAnxietyLevel = $_POST["patientAnxietyLVL"]?? null;
+  $patientPhobia = $_POST["patientPhobia"]?? null;
+  $patientLocation = $_POST["patientLocation"]?? null;
+
  
   //Insertamos paciente
   $sqlAddPatient = "INSERT INTO patient (name, genre, age, anxietyLevel, phobia, Location)   VALUES ('".$patientName."', '".$patientGenre."','".$patientAge."','".$patientAnxietyLevel."','".$patientPhobia."','".$patientLocation."')";

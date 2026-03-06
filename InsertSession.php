@@ -24,7 +24,7 @@
 
     $getIV = function () use ($method) {
         return base64_encode(openssl_random_pseudo_bytes(openssl_cipher_iv_length($method)))
-    };
+    }
 
     //Desencrypted JSON
     $sessionDecrypted =  $decrypt($sessionDecoded);
