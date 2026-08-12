@@ -1,62 +1,47 @@
 <?php 
+include 'auth.php';
+include 'ConexionDB.php';
 
-    $servername = "localhost";
-    $username = "franca";
-    $password = "0!dri-ilxP@faIMc";
-    $dbname = "SessionInfo";
-    //Create Con
-    $conn = new mysqli( $servername,$username,$password,$dbname);
-    
-    $sessionData = $_POST["sessionDataJson"];
-     
-    // Decoding json 
-    $sessionDecoded = json_decode($sessionData);
+// TODO: Revisar si este endpoint es necesario o está reemplazado por InsertSession.php/UpdateSession.php
 
-    //Desencrypt (?)
-    $method = 'aes-256-cbc';
 
-    $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
+$specialistID = verifyToken();
 
-    $decrypt = function ($valor) use ($method, $clave, $iv) {
-        $encrypted_data = base64_decode($valor);
-        return openssl_decrypt($valor, $method, $clave, false, $iv);
-    };
 
-    $getIV = function () use ($method) {
-        return base64_encode(openssl_random_pseudo_bytes(openssl_cipher_iv_length($method)))
+    $genre = $_POST["genre"]??null ;
+    $age = $_POST["age"]??null;
+    $userLocation = $_POST["userLocation"]??null;
+    $phobiaLevel = $_POST["phobiaLevel"]??null;
+    $symptoms = $_POST["symptoms"]??null;
+    $HRV = $_POST["HRV"]??null;
+    $duration = $_POST["duration"]??null;
+    $actualDate = date("Y-m-d H:i:s");
+
+    if(!$genre ||!$age ||!$userLocation ||!$phobiaLevel ||!$symptoms ||!$HRV || !$duration ){
+        http_response_code(400);
+        echo json_encode(["error" => "Hay algún dato no válido o falta alguno"]);
+        exit;
     }
 
-    //Desencrypted JSON
-    $sessionDecrypted =  $decrypt($sessionDecoded);
-   
-
-    SetValues($sessionDecrypted);
-
- //Check Connection
- if($conn-> connect_error)
-     die("Connection Failed: " . $conn->connect_error)
-     $sql = "INSERT INTO sessionInfo (genre, age, userLocation, phobiaLevel, symptoms, HRV, duration, date) 
-      VALUES('".$genre ."',
-             '" .$age ."',
-             '" .$phobiaLevel ."',
-             '" .$symptoms ."',
-             '" .$HRV ."',
-             '" .$duration ."',
-             '" .$date ."')";
-
-
-
-
-    function SetValues($sessionDecrypted){
-       //Assign Values
-       $genre = $sessionDecrypted -> genre;
-       $age =  $sessionDecrypted -> age;
-       $phobiaLevel = $sessionDecrypted -> phobiaLevel;
-       $symptoms =  $sessionDecrypted -> symptoms;
-       $HRV =  $sessionDecrypted -> HRV;
-       $duration =  $sessionDecrypted -> durationSession;
-       $date = .date("dd-M-YY H:i:s");
-        
-
-
+    $sqlQuery = "INSERT INTO sessionInfo (genre, age, userLocation, phobiaLevel, symptoms, HRV, duration, date)   VALUES(?,?,?,?,?,?,?,?)";
+    $stmt = $conn -> prepare($sqlQuery);
+       
+    if(!$stmt){
+        http_response_code(500);
+        echo json_encode (["Error"=> "Error por parte del servidor, intente de nuevo"]);
+         exit;
+    }
+    
+    $stmt -> bind_param("sisisids", $genre,$age,$userLocation,$phobiaLevel,$symptoms,$HRV,$duration, $actualDate); 
+    $stmt -> execute();
+    
+    if ($stmt->affected_rows > 0) {
+        http_response_code(201);
+        echo json_encode(["success" => "Se ha introducido correctamente"]); // ← json_encode
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "No se pudo insertar"]);
+    }   
+    $stmt -> close();
+    $conn -> close();
 ?>

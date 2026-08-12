@@ -10,16 +10,16 @@ $specialistID = verifyToken();
 
 $expireTime = 8;
 
-if(!isset($_POST["loginUser"]) || !isset($_POST["loginPass"])) {
+//Variables submitted by user
+$loginUser = $_POST["loginUser"]??null;
+$loginPass = $_POST["loginPass"]??null;
+
+
+if(!$loginUser ||$loginPass ) {
    http_response_code(400);
-   echo json_encode(["error" => "Error, usuario o contraseña incorrecta."]);
+   echo json_encode(["error" => "Error, algún dato introducido es erróneo."]);
    exit;
 }
-//Variables submitted by user
-$loginUser = $_POST["loginUser"];
-$loginPass = $_POST["loginPass"];
-
-
 $sqlQuery = "SELECT ID, password FROM specialist WHERE username = ?";
 $stmt = $conn->prepare($sqlQuery);
 

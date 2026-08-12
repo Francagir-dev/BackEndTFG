@@ -1,6 +1,10 @@
 <?php 
 
 include 'ConexionDB.php';
+include 'auth.php';
+
+$specialistID = verifyToken();
+
 
 $SessionID = $_POST["sessionID"];          
 $ItemSeen = $_POST["itemName"];       
@@ -12,6 +16,8 @@ $sqlAddItem = "INSERT INTO itemsseen (sessionID, itemSeen, duration, distanceToP
    VALUES ('".$SessionID."', '".$ItemSeen."','".$Duration."','".$DistanceToPlayer."','".$ManytimesSeen."')";
  $result = $conn -> query($sqlAddItem);
 
+
+ 
  
  echo $result;
 
